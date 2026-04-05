@@ -5,65 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2048 - मजेदार पजल गेम 🎮</title>
     <style>
-        body {
-            margin: 0;
-            padding: 20px;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            font-family: 'Comic Neue', Arial, sans-serif;
-            color: white;
-            text-align: center;
-        }
-        .container {
-            max-width: 500px;
-            margin: 0 auto;
-            background: rgba(255,255,255,0.2);
-            padding: 25px;
-            border-radius: 25px;
-            backdrop-filter: blur(10px);
-        }
-        h1 { font-size: 3.8rem; margin: 10px 0; }
-        #score { font-size: 2rem; margin: 15px 0; font-weight: bold; }
-        #board {
-            width: 420px;
-            height: 420px;
-            background: #bbada0;
-            margin: 20px auto;
-            border-radius: 15px;
-            position: relative;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-        }
-        .tile {
-            position: absolute;
-            width: 92px;
-            height: 92px;
-            line-height: 92px;
-            font-size: 45px;
-            font-weight: bold;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-            box-shadow: inset 0 4px 8px rgba(0,0,0,0.2);
-        }
-        button {
-            background: #fff;
-            color: #667eea;
-            border: none;
-            padding: 15px 40px;
-            font-size: 1.4rem;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: bold;
-            margin: 10px;
-        }
-        .back-btn {
-            color: white;
-            text-decoration: none;
-            font-size: 1.4rem;
-            margin-top: 20px;
-            display: inline-block;
-        }
+        body { margin:0; padding:20px; background:linear-gradient(135deg,#667eea,#764ba2); font-family:'Comic Neue',Arial,sans-serif; color:white; text-align:center; }
+        .container { max-width:500px; margin:0 auto; background:rgba(255,255,255,0.2); padding:25px; border-radius:25px; backdrop-filter:blur(10px); }
+        h1 { font-size:3.8rem; margin:10px 0; }
+        #score { font-size:2rem; margin:15px 0; font-weight:bold; }
+        #board { width:420px; height:420px; background:#bbada0; margin:20px auto; border-radius:15px; position:relative; box-shadow:0 15px 35px rgba(0,0,0,0.4); }
+        .tile { position:absolute; width:92px; height:92px; line-height:92px; font-size:45px; font-weight:bold; border-radius:10px; display:flex; align-items:center; justify-content:center; transition:all 0.2s; box-shadow:inset 0 4px 8px rgba(0,0,0,0.2); }
+        button { background:#fff; color:#667eea; border:none; padding:15px 40px; font-size:1.4rem; border-radius:50px; cursor:pointer; font-weight:bold; margin:10px; }
+        .back-btn { color:white; text-decoration:none; font-size:1.4rem; margin-top:20px; display:inline-block; }
     </style>
 </head>
 <body>
@@ -76,61 +25,109 @@
     </div>
 
     <script>
-        let board = Array.from({length: 4}, () => Array(4).fill(0));
+        let board = Array.from({length:4}, () => Array(4).fill(0));
         let score = 0;
         const boardEl = document.getElementById('board');
         const scoreEl = document.getElementById('score');
 
         function newGame() {
-            board = Array.from({length: 4}, () => Array(4).fill(0));
+            board = Array.from({length:4}, () => Array(4).fill(0));
             score = 0;
             scoreEl.textContent = 'Score: 0';
-            addRandomTile();
-            addRandomTile();
-            renderBoard();
+            addRandomTile(); addRandomTile();
+            render();
         }
 
         function addRandomTile() {
-            let emptyCells = [];
-            for (let i = 0; i < 4; i++) {
-                for (let j = 0; j < 4; j++) {
-                    if (board[i][j] === 0) emptyCells.push({i, j});
-                }
-            }
-            if (emptyCells.length === 0) return;
-            let {i, j} = emptyCells[Math.floor(Math.random() * emptyCells.length)];
-            board[i][j] = Math.random() < 0.9 ? 2 : 4;
+            let empty = [];
+            for (let i=0; i<4; i++) for (let j=0; j<4; j++) if (board[i][j]===0) empty.push({i,j});
+            if (empty.length===0) return;
+            let {i,j} = empty[Math.floor(Math.random()*empty.length)];
+            board[i][j] = Math.random()<0.9 ? 2 : 4;
         }
 
-        function renderBoard() {
+        function render() {
             boardEl.innerHTML = '';
-            for (let i = 0; i < 4; i++) {
-                for (let j = 0; j < 4; j++) {
-                    if (board[i][j] !== 0) {
+            for (let i=0; i<4; i++) {
+                for (let j=0; j<4; j++) {
+                    if (board[i][j]!==0) {
                         let tile = document.createElement('div');
                         tile.className = 'tile';
-                        tile.style.left = (j * 105 + 12) + 'px';
-                        tile.style.top = (i * 105 + 12) + 'px';
+                        tile.style.left = (j*105 + 12) + 'px';
+                        tile.style.top = (i*105 + 12) + 'px';
                         tile.textContent = board[i][j];
-                        tile.style.backgroundColor = getTileColor(board[i][j]);
-                        tile.style.color = board[i][j] >= 8 ? '#f9f6f2' : '#776e65';
+                        tile.style.backgroundColor = getColor(board[i][j]);
+                        tile.style.color = board[i][j]>=8 ? '#f9f6f2' : '#776e65';
                         boardEl.appendChild(tile);
                     }
                 }
             }
         }
 
-        function getTileColor(value) {
-            const colors = {
-                2: '#eee4da', 4: '#ede0c8', 8: '#f2b179', 16: '#f59563',
-                32: '#f67c5f', 64: '#f65e3b', 128: '#edcf72', 256: '#edcc61',
-                512: '#9c0', 1024: '#33b679', 2048: '#33b679'
-            };
-            return colors[value] || '#3c3a32';
+        function getColor(v) {
+            const colors = {2:'#eee4da',4:'#ede0c8',8:'#f2b179',16:'#f59563',32:'#f67c5f',64:'#f65e3b',128:'#edcf72',256:'#edcc61',512:'#9c0',1024:'#33b679',2048:'#33b679'};
+            return colors[v] || '#3c3a32';
         }
 
-        // Arrow keys control (basic working)
-        document.addEventListener('keydown', function(e) {
+        // Full move functions (sab 4 directions kaam karengi)
+        function slide(row) {
+            let r = row.filter(n => n !== 0);
+            for (let i=0; i<r.length-1; i++) {
+                if (r[i] === r[i+1]) { r[i]*=2; score += r[i]; r.splice(i+1,1); }
+            }
+            while (r.length<4) r.push(0);
+            return r;
+        }
+
+        function moveLeft() {
+            let moved = false;
+            for (let i=0; i<4; i++) {
+                let old = board[i].join();
+                board[i] = slide(board[i]);
+                if (old !== board[i].join()) moved = true;
+            }
+            return moved;
+        }
+
+        function moveRight() {
+            let moved = false;
+            for (let i=0; i<4; i++) {
+                let old = board[i].join();
+                let rev = board[i].slice().reverse();
+                let sl = slide(rev);
+                board[i] = sl.reverse();
+                if (old !== board[i].join()) moved = true;
+            }
+            return moved;
+        }
+
+        function moveUp() {
+            let moved = false;
+            for (let j=0; j<4; j++) {
+                let col = [board[0][j],board[1][j],board[2][j],board[3][j]];
+                let old = col.join();
+                let sl = slide(col);
+                for (let i=0; i<4; i++) board[i][j] = sl[i];
+                if (old !== sl.join()) moved = true;
+            }
+            return moved;
+        }
+
+        function moveDown() {
+            let moved = false;
+            for (let j=0; j<4; j++) {
+                let col = [board[0][j],board[1][j],board[2][j],board[3][j]];
+                let old = col.join();
+                let rev = col.reverse();
+                let sl = slide(rev);
+                let final = sl.reverse();
+                for (let i=0; i<4; i++) board[i][j] = final[i];
+                if (old !== final.join()) moved = true;
+            }
+            return moved;
+        }
+
+        document.addEventListener('keydown', e => {
             let moved = false;
             if (e.key === 'ArrowLeft') moved = moveLeft();
             else if (e.key === 'ArrowRight') moved = moveRight();
@@ -139,39 +136,12 @@
 
             if (moved) {
                 addRandomTile();
-                renderBoard();
+                render();
                 scoreEl.textContent = 'Score: ' + score;
-                if (board.flat().some(val => val === 2048)) {
-                    setTimeout(() => alert('🎉 बधाई हो! आपने 2048 बना लिया!'), 100);
-                }
+                if (board.flat().includes(2048)) setTimeout(() => alert('🎉 बधाई हो! आपने 2048 बना लिया!'), 200);
             }
         });
 
-        // Basic move functions (left implemented, others similar placeholder - yeh kaam karega)
-        function moveLeft() {
-            let moved = false;
-            for (let i = 0; i < 4; i++) {
-                let row = board[i].filter(n => n !== 0);
-                for (let j = 0; j < row.length - 1; j++) {
-                    if (row[j] === row[j + 1]) {
-                        row[j] *= 2;
-                        score += row[j];
-                        row.splice(j + 1, 1);
-                        moved = true;
-                    }
-                }
-                while (row.length < 4) row.push(0);
-                if (board[i].join(',') !== row.join(',')) moved = true;
-                board[i] = row;
-            }
-            return moved;
-        }
-
-        function moveRight() { /* similar to left but reverse */ return false; }
-        function moveUp() { return false; }
-        function moveDown() { return false; }
-
-        // Start game
         newGame();
     </script>
 </body>
