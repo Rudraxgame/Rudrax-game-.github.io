@@ -11,10 +11,9 @@
         .games-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:20px; margin-top:30px; }
         .game-card { background:rgba(255,255,255,0.2); border-radius:20px; overflow:hidden; transition:0.3s; }
         .game-card:hover { transform:scale(1.05); }
-        .game-card img, .game-card div.placeholder { height:180px; display:flex; align-items:center; justify-content:center; font-size:4rem; background:#fff; color:#000; }
+        .game-card .icon { height:180px; display:flex; align-items:center; justify-content:center; font-size:5rem; background:#fff; color:#000; }
         .game-card h3 { margin:15px; font-size:1.5rem; }
         button { background:white; color:#a855f7; border:none; padding:12px 30px; font-size:1.2rem; border-radius:50px; cursor:pointer; margin:20px 10px; }
-        .back { color:white; text-decoration:none; font-size:1.3rem; }
     </style>
 </head>
 <body>
@@ -25,21 +24,21 @@
         <div class="games-grid">
             <!-- 2048 -->
             <a href="2048.html" class="game-card">
-                <div class="placeholder">🟦</div>
+                <div class="icon">🟦</div>
                 <h3>2048 Puzzle</h3>
                 <p>Numbers jod ke 2048 banao!</p>
             </a>
 
-            <!-- Snake (agar snake.html add kar chuke ho) -->
+            <!-- Snake -->
             <a href="snake.html" class="game-card">
-                <div class="placeholder">🐍</div>
+                <div class="icon">🐍</div>
                 <h3>Snake Game</h3>
                 <p>Classic snake khelo!</p>
             </a>
 
-            <!-- Baaki games ke liye placeholder (baad mein add karenge) -->
+            <!-- Tic-Tac-Toe (agla game) -->
             <a href="#" onclick="alert('Tic-Tac-Toe jaldi aa raha hai!')" class="game-card">
-                <div class="placeholder">❌⭕</div>
+                <div class="icon">❌⭕</div>
                 <h3>Tic-Tac-Toe</h3>
                 <p>Dost ke saath khelo!</p>
             </a>
