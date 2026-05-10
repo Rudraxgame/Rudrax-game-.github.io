@@ -12,72 +12,80 @@
         .game-card:hover { transform: scale(1.08); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.2); }
     </style>
 </head>
-<body class="bg-gradient-to-br from-purple-500 via-pink-500 to-yellow-400 min-h-screen text-white">
-    <!-- Navbar -->
-    <nav class="bg-white/20 backdrop-blur-md py-4 sticky top-0 z-50">
+<body class="bg-gradient-to-br from-indigo-600 via-purple-500 to-pink-500 min-h-screen text-white">
+    <nav class="bg-white/10 backdrop-blur-md py-4 sticky top-0 z-50 border-b border-white/20">
         <div class="max-w-6xl mx-auto px-6 flex justify-between items-center">
             <div class="flex items-center gap-3">
                 <span class="text-4xl">🎮</span>
-                <h1 class="text-3xl font-bold">Rudraksh मस्त गेम्स</h1>
+                <h1 class="text-3xl font-bold tracking-tight">Rudraksh मस्त गेम्स</h1>
             </div>
-            <div class="flex gap-6 text-xl">
-                <a href="index.html" class="hover:underline">🏠 Home</a>
-                <a href="#" class="hover:underline">🧩 Puzzle</a>
-                <a href="#" class="hover:underline">🏎️ Racing</a>
-                <a href="#" class="hover:underline">⚔️ Action</a>
+            <div class="hidden md:flex gap-6 text-xl">
+                <a href="index.html" class="hover:text-yellow-300 transition">🏠 Home</a>
+                <a href="puzzle.html" class="hover:text-yellow-300 transition">🧩 Puzzle</a>
+                <a href="snake.html" class="hover:text-yellow-300 transition">🐍 Snake</a>
+                <a href="tictactoe.html" class="hover:text-yellow-300 transition">⭕ TicTacToe</a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <div class="max-w-6xl mx-auto px-6 pt-20 pb-16 text-center">
-        <h2 class="text-6xl font-bold mb-6 leading-none">200+ मजेदार गेम्स<br>बच्चों के लिए! 🎉</h2>
-        <p class="text-3xl mb-10">बिल्कुल फ्री • कोई ऐड्स नहीं • मोबाइल पर भी मस्ती</p>
-        
-        <!-- Real Game Button -->
-        <a href="2048.html" 
-           class="inline-block bg-white text-purple-600 text-3xl font-bold px-12 py-6 rounded-3xl shadow-xl hover:scale-110 transition">
-            खेलना शुरू करो!
-        </a>
+    <div class="max-w-6xl mx-auto px-6 pt-16 pb-12 text-center">
+        <h2 class="text-5xl md:text-7xl font-bold mb-6 animate-bounce">मस्ती का अड्डा! 🚀</h2>
+        <p class="text-2xl md:text-3xl mb-10 opacity-90 text-yellow-200">बिल्कुल फ्री • मोबाइल फ्रेंडली • फुल स्क्रीन गेम्स</p>
     </div>
 
-    <!-- Categories -->
-    <div class="max-w-6xl mx-auto px-6 py-12 bg-white/10 backdrop-blur-md rounded-3xl mx-6">
-        <h3 class="text-4xl font-bold text-center mb-10">कैटेगरी चुनो</h3>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div onclick="alert('Puzzle games jaldi aa rahe hain! Abhi 2048 try karo')" 
-                 class="bg-white/20 rounded-2xl p-8 text-center game-card cursor-pointer text-2xl">🧩 Puzzle Games</div>
-            <div onclick="alert('Racing games jaldi aa rahe hain!')" 
-                 class="bg-white/20 rounded-2xl p-8 text-center game-card cursor-pointer text-2xl">🏎️ Racing Games</div>
-            <div onclick="alert('Adventure games jaldi aa rahe hain!')" 
-                 class="bg-white/20 rounded-2xl p-8 text-center game-card cursor-pointer text-2xl">🐱 Adventure</div>
-            <div onclick="alert('Fun & Easy games jaldi aa rahe hain!')" 
-                 class="bg-white/20 rounded-2xl p-8 text-center game-card cursor-pointer text-2xl">🍭 Fun & Easy</div>
+    <div class="max-w-6xl mx-auto px-6 py-10">
+        <h3 class="text-4xl font-bold mb-10 border-l-8 border-yellow-400 pl-4">⭐ टॉप गेम्स</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            
+            <a href="snake.html" class="bg-white/20 rounded-3xl overflow-hidden game-card block border border-white/30">
+                <div class="h-40 bg-green-500 flex items-center justify-center text-7xl">🐍</div>
+                <div class="p-6">
+                    <h4 class="text-2xl font-bold">Snake Mania</h4>
+                    <p class="text-sm opacity-80">Apple khao aur lambe ho jao!</p>
+                    <span class="inline-block mt-4 bg-green-600 px-4 py-2 rounded-full text-xs font-bold">अभी खेलो →</span>
+                </div>
+            </a>
+
+            <a href="tictactoe.html" class="bg-white/20 rounded-3xl overflow-hidden game-card block border border-white/30">
+                <div class="h-40 bg-blue-500 flex items-center justify-center text-7xl">❌</div>
+                <div class="p-6">
+                    <h4 class="text-2xl font-bold">Tic Tac Toe</h4>
+                    <p class="text-sm opacity-80">Doston ke saath X-O khelo!</p>
+                    <span class="inline-block mt-4 bg-blue-600 px-4 py-2 rounded-full text-xs font-bold">अभी खेलो →</span>
+                </div>
+            </a>
+
+            <a href="2048.html" class="bg-white/20 rounded-3xl overflow-hidden game-card block border border-white/30">
+                <div class="h-40 bg-orange-500 flex items-center justify-center text-7xl">🔢</div>
+                <div class="p-6">
+                    <h4 class="text-2xl font-bold">2048 Master</h4>
+                    <p class="text-sm opacity-80">Numbers ko jod kar win karo!</p>
+                    <span class="inline-block mt-4 bg-orange-600 px-4 py-2 rounded-full text-xs font-bold">अभी खेलo →</span>
+                </div>
+            </a>
+
+            <a href="puzzle.html" class="bg-white/20 rounded-3xl overflow-hidden game-card block border border-white/30">
+                <div class="h-40 bg-purple-500 flex items-center justify-center text-7xl">🧩</div>
+                <div class="p-6">
+                    <h4 class="text-2xl font-bold">Mind Puzzle</h4>
+                    <p class="text-sm opacity-80">Dimaag lagao aur solve karo!</p>
+                    <span class="inline-block mt-4 bg-purple-600 px-4 py-2 rounded-full text-xs font-bold">अभी खेलो →</span>
+                </div>
+            </a>
+
         </div>
     </div>
 
-    <!-- Featured Games -->
-    <div class="max-w-6xl mx-auto px-6 py-16">
-        <h3 class="text-4xl font-bold text-center mb-10">⭐ Featured Games</h3>
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-8">
-            <a href="2048.html" class="bg-white/20 rounded-3xl overflow-hidden game-card block">
-                <div class="h-52 bg-gradient-to-br from-blue-400 to-cyan-300 flex items-center justify-center text-8xl">🟦</div>
-                <div class="p-8">
-                    <h4 class="text-3xl font-bold">2048 Puzzle</h4>
-                    <p class="text-lg opacity-90">Numbers jod ke 2048 banao! Bahut mazedaar</p>
-                    <span class="inline-block mt-4 bg-white/30 px-6 py-2 rounded-full text-sm">खेलो →</span>
-                </div>
-            </a>
+    <div class="max-w-6xl mx-auto px-6 py-12">
+        <div class="bg-black/20 rounded-3xl p-8 text-center border-2 border-dashed border-white/30">
+            <h3 class="text-3xl font-bold mb-4 italic">Jaldi aa rahe hain: Racing 🏎️ aur Action ⚔️</h3>
+            <p class="opacity-70 text-lg">Hum har hafte naye AI games add kar rahe hain!</p>
         </div>
     </div>
 
     <footer class="text-center py-12 text-white/70 text-xl">
-        ❤️ 100% Free Kids Game Website • No Ads Ever<br>
-        Made with ❤️ for Bacche
+        Built with ❤️ for Rudraksh Gaming Space<br>
+        <span class="text-sm">Jarvis Optimized • 100% Free</span>
     </footer>
-
-    <script>
-        tailwind.config = { content: ["*"] }
-    </script>
 </body>
 </html>
