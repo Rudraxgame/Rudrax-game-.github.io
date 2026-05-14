@@ -1,83 +1,202 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rudraksh मस्त गेम्स 🎮 - Kids Game Space</title>
+    <title>RUDRAX • ULTRA ACTION HUB</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap');
-        body { font-family: 'Comic Neue', cursive; }
-        .game-card { transition: all 0.3s; }
-        .game-card:hover { transform: scale(1.08); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.2); }
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&display=swap');
+
+        body {
+            font-family: 'Orbitron', sans-serif;
+            background: #050505;
+            color: #e0e0e0;
+            overflow-x: hidden;
+        }
+
+        /* Cyber Grid Background */
+        .cyber-grid {
+            background: 
+                linear-gradient(rgba(139, 92, 246, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(139, 92, 246, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        .particles {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            background: #a5b4fc;
+            border-radius: 50%;
+            opacity: 0.4;
+            animation: floatParticle linear infinite;
+        }
+
+        @keyframes floatParticle {
+            0% { transform: translateY(110vh); }
+            100% { transform: translateY(-10vh); }
+        }
+
+        .glass-nav {
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(167, 139, 250, 0.2);
+        }
+
+        .game-card {
+            transition: transform 0.2s ease-out, box-shadow 0.3s ease;
+            transform-style: preserve-3d;
+            background: #0f172a;
+            position: relative;
+        }
+
+        .game-card:hover {
+            box-shadow: 0 0 40px rgba(139, 92, 246, 0.4);
+        }
+
+        .neon-border {
+            border: 1px solid rgba(167, 139, 250, 0.2);
+            position: relative;
+        }
+
+        .neon-border:hover {
+            border-color: #a855f7;
+        }
+
+        .metal-title {
+            background: linear-gradient(180deg, #fff 0%, #a5b4fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 20px rgba(167, 139, 250, 0.5));
+        }
+
+        .neon-icon {
+            filter: drop-shadow(0 0 10px rgba(167, 139, 250, 0.8));
+        }
+
+        .launch-btn {
+            background: linear-gradient(45deg, #7c3aed, #db2777);
+            box-shadow: 0 0 25px rgba(124, 58, 237, 0.5);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(124, 58, 237, 0.5); }
+            50% { transform: scale(1.05); box-shadow: 0 0 35px rgba(124, 58, 237, 0.8); }
+        }
     </style>
 </head>
-<body class="bg-gradient-to-br from-purple-500 via-pink-500 to-yellow-400 min-h-screen text-white">
-    <!-- Navbar -->
-    <nav class="bg-white/20 backdrop-blur-md py-4 sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto px-6 flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <span class="text-4xl">🎮</span>
-                <h1 class="text-3xl font-bold">Rudraksh मस्त गेम्स</h1>
+<body class="cyber-grid min-h-screen">
+
+    <div class="particles" id="particles"></div>
+
+    <nav class="glass-nav fixed top-0 left-0 right-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <i class="fas fa-gamepad text-4xl text-purple-500 neon-icon"></i>
+                <h1 class="text-3xl font-black tracking-tighter metal-title">RUDRAX</h1>
             </div>
-            <div class="flex gap-6 text-xl">
-                <a href="index.html" class="hover:underline">🏠 Home</a>
-                <a href="#" class="hover:underline">🧩 Puzzle</a>
-                <a href="#" class="hover:underline">🏎️ Racing</a>
-                <a href="#" class="hover:underline">⚔️ Action</a>
+            <div class="hidden md:flex gap-8 text-sm font-bold tracking-widest uppercase">
+                <a href="#" class="hover:text-purple-400 transition">Action</a>
+                <a href="snake.html" class="hover:text-purple-400 transition">Snake</a>
+                <a href="tictactoe.html" class="hover:text-purple-400 transition">Tactical</a>
+                <a href="2048.html" class="hover:text-purple-400 transition">Matrix</a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <div class="max-w-6xl mx-auto px-6 pt-20 pb-16 text-center">
-        <h2 class="text-6xl font-bold mb-6 leading-none">200+ मजेदार गेम्स<br>बच्चों के लिए! 🎉</h2>
-        <p class="text-3xl mb-10">बिल्कुल फ्री • कोई ऐड्स नहीं • मोबाइल पर भी मस्ती</p>
-        
-        <!-- Real Game Button -->
-        <a href="2048.html" 
-           class="inline-block bg-white text-purple-600 text-3xl font-bold px-12 py-6 rounded-3xl shadow-xl hover:scale-110 transition">
-            खेलना शुरू करो!
+    <div class="pt-48 pb-20 text-center relative z-10">
+        <h2 class="text-6xl md:text-8xl font-black mb-4 tracking-tighter">ULTRA ACTION HUB</h2>
+        <p class="text-xl text-purple-300 mb-10 tracking-[0.2em] font-light uppercase">Next-Gen Gaming Portal</p>
+        <a href="2048.html" class="launch-btn inline-block px-12 py-6 rounded-2xl text-2xl font-black transition-all">
+            LAUNCH ENGINE <i class="fas fa-bolt ml-2"></i>
         </a>
     </div>
 
-    <!-- Categories -->
-    <div class="max-w-6xl mx-auto px-6 py-12 bg-white/10 backdrop-blur-md rounded-3xl mx-6">
-        <h3 class="text-4xl font-bold text-center mb-10">कैटेगरी चुनो</h3>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div onclick="alert('Puzzle games jaldi aa rahe hain! Abhi 2048 try karo')" 
-                 class="bg-white/20 rounded-2xl p-8 text-center game-card cursor-pointer text-2xl">🧩 Puzzle Games</div>
-            <div onclick="alert('Racing games jaldi aa rahe hain!')" 
-                 class="bg-white/20 rounded-2xl p-8 text-center game-card cursor-pointer text-2xl">🏎️ Racing Games</div>
-            <div onclick="alert('Adventure games jaldi aa rahe hain!')" 
-                 class="bg-white/20 rounded-2xl p-8 text-center game-card cursor-pointer text-2xl">🐱 Adventure</div>
-            <div onclick="alert('Fun & Easy games jaldi aa rahe hain!')" 
-                 class="bg-white/20 rounded-2xl p-8 text-center game-card cursor-pointer text-2xl">🍭 Fun & Easy</div>
-        </div>
-    </div>
+    <div class="max-w-7xl mx-auto px-6 pb-24 relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <a href="2048.html" class="game-card neon-border rounded-2xl p-1 block">
+            <div class="h-48 bg-gradient-to-br from-blue-600 to-indigo-900 rounded-xl flex items-center justify-center text-6xl">
+                <i class="fas fa-layer-group text-white"></i>
+            </div>
+            <div class="p-6">
+                <h4 class="text-xl font-bold mb-1">2048 MATRIX</h4>
+                <p class="text-xs text-slate-400 uppercase tracking-widest">Puzzle Strategy</p>
+            </div>
+        </a>
 
-    <!-- Featured Games -->
-    <div class="max-w-6xl mx-auto px-6 py-16">
-        <h3 class="text-4xl font-bold text-center mb-10">⭐ Featured Games</h3>
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-8">
-            <a href="2048.html" class="bg-white/20 rounded-3xl overflow-hidden game-card block">
-                <div class="h-52 bg-gradient-to-br from-blue-400 to-cyan-300 flex items-center justify-center text-8xl">🟦</div>
-                <div class="p-8">
-                    <h4 class="text-3xl font-bold">2048 Puzzle</h4>
-                    <p class="text-lg opacity-90">Numbers jod ke 2048 banao! Bahut mazedaar</p>
-                    <span class="inline-block mt-4 bg-white/30 px-6 py-2 rounded-full text-sm">खेलो →</span>
-                </div>
-            </a>
-        </div>
-    </div>
+        <a href="snake.html" class="game-card neon-border rounded-2xl p-1 block">
+            <div class="h-48 bg-gradient-to-br from-green-600 to-teal-900 rounded-xl flex items-center justify-center text-6xl">
+                <i class="fas fa-dragon text-white"></i>
+            </div>
+            <div class="p-6">
+                <h4 class="text-xl font-bold mb-1">SNAKE PROTOCOL</h4>
+                <p class="text-xs text-slate-400 uppercase tracking-widest">Survival Action</p>
+            </div>
+        </a>
 
-    <footer class="text-center py-12 text-white/70 text-xl">
-        ❤️ 100% Free Kids Game Website • No Ads Ever<br>
-        Made with ❤️ for Bacche
-    </footer>
+        <a href="tictactoe.html" class="game-card neon-border rounded-2xl p-1 block">
+            <div class="h-48 bg-gradient-to-br from-red-600 to-purple-900 rounded-xl flex items-center justify-center text-6xl">
+                <i class="fas fa-chess-knight text-white"></i>
+            </div>
+            <div class="p-6">
+                <h4 class="text-xl font-bold mb-1">TACTICAL ARENA</h4>
+                <p class="text-xs text-slate-400 uppercase tracking-widest">Combat Strategy</p>
+            </div>
+        </a>
+
+        <a href="#" class="game-card neon-border rounded-2xl p-1 block">
+            <div class="h-48 bg-gradient-to-br from-orange-500 to-red-800 rounded-xl flex items-center justify-center text-6xl">
+                <i class="fas fa-car-side text-white"></i>
+            </div>
+            <div class="p-6">
+                <h4 class="text-xl font-bold mb-1">TURBO OVERDRIVE</h4>
+                <p class="text-xs text-slate-400 uppercase tracking-widest">Racing Hub</p>
+            </div>
+        </a>
+
+    </div>
 
     <script>
-        tailwind.config = { content: ["*"] }
+        // Sahi JS Tilt Effect
+        document.querySelectorAll('.game-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width - 0.5;
+                const y = (e.clientY - rect.top) / rect.height - 0.5;
+                
+                // Yahan maine backticks aur dollar sign theek kar diya hai
+                card.style.transform = `perspective(1000px) rotateX(${y * -20}deg) rotateY(${x * 20}deg) scale3d(1.05, 1.05, 1.05)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+            });
+        });
+
+        // Background Particles
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                const size = Math.random() * 3 + 1;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.animationDuration = (Math.random() * 10 + 5) + 's';
+                particle.style.animationDelay = (Math.random() * 5) + 's';
+                container.appendChild(particle);
+            }
+        }
+        createParticles();
     </script>
 </body>
 </html>
