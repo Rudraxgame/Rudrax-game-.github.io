@@ -3,229 +3,199 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RUDRAX • ULTRA ACTION HUB</title>
+    <title>RUDRAX • COSMIC ACTION HUB</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;600&display=swap');
 
-        :root {
-            --neon-violet: #a78bfa;
-            --neon-cyan: #22d3ee;
-        }
-
         body {
             font-family: 'Rajdhani', sans-serif;
-            background: #050505;
-            color: #ffffff;
+            background: radial-gradient(circle at 50% 50%, #1a1a2e 0%, #050505 100%);
+            color: #e0e0e0;
             overflow-x: hidden;
-            cursor: crosshair;
+            position: relative;
+            min-height: 100vh;
         }
 
-        h1, h2, h3, .nav-link { font-family: 'Orbitron', sans-serif; }
+        h1, h2, h3, h4, .nav-font { font-family: 'Orbitron', sans-serif; }
 
-        /* Cyber Grid Background */
-        .grid-bg {
+        /* Universe Background Effects */
+        .nebula {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background-image: linear-gradient(rgba(167, 139, 250, 0.05) 1px, transparent 1px),
-                              linear-gradient(90deg, rgba(167, 139, 250, 0.05) 1px, transparent 1px);
-            background-size: 50px 50px;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(139, 92, 246, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(34, 211, 238, 0.1) 0%, transparent 40%);
             z-index: -1;
+            pointer-events: none;
         }
 
-        /* Floating Particles */
         .particles {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none; z-index: 0;
         }
+
         .particle {
             position: absolute;
             background: white;
             border-radius: 50%;
-            filter: blur(1px);
             animation: floatUp linear infinite;
         }
+
         @keyframes floatUp {
-            from { transform: translateY(105vh); opacity: 0; }
-            to { transform: translateY(-10vh); opacity: 0.8; }
+            from { transform: translateY(105vh) scale(1); opacity: 0; }
+            to { transform: translateY(-10vh) scale(0.5); opacity: 0.8; }
         }
 
-        /* Glassmorphism Classes */
+        /* Glassmorphism & UI */
         .glass-nav {
-            background: rgba(10, 10, 10, 0.8);
-            backdrop-filter: blur(20px);
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(15px);
             border-bottom: 1px solid rgba(167, 139, 250, 0.3);
         }
-        .game-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: transform 0.1s ease-out, box-shadow 0.3s ease;
-            transform-style: preserve-3d;
-        }
-        .game-card:hover {
-            border-color: var(--neon-cyan);
-            box-shadow: 0 0 30px rgba(34, 211, 238, 0.3);
+
+        .search-container {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(167, 139, 250, 0.3);
+            border-radius: 50px;
+            padding: 5px 20px;
+            transition: all 0.3s ease;
         }
 
-        /* Animations */
-        .glow-text { text-shadow: 0 0 15px rgba(167, 139, 250, 0.8); }
-        .pulse-btn { animation: pulse 2s infinite; }
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(167, 139, 250, 0.7); }
-            70% { box-shadow: 0 0 0 20px rgba(167, 139, 250, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(167, 139, 250, 0); }
+        .search-container:focus-within {
+            border-color: #22d3ee;
+            box-shadow: 0 0 15px rgba(34, 211, 238, 0.3);
         }
+
+        .game-card {
+            background: rgba(20, 20, 30, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+        }
+
+        .game-card:hover {
+            border-color: #a78bfa;
+            box-shadow: 0 0 30px rgba(167, 139, 250, 0.3);
+        }
+
+        .glow-text { text-shadow: 0 0 15px rgba(167, 139, 250, 0.8); }
     </style>
 </head>
 <body>
 
-    <div class="grid-bg"></div>
+    <div class="nebula"></div>
     <div class="particles" id="particles"></div>
 
     <nav class="fixed top-0 w-full z-50 glass-nav">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex flex-wrap justify-between items-center gap-4">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-violet-600 rounded-lg flex items-center justify-center neon-glow">
-                    <i class="fas fa-bolt text-xl text-white"></i>
-                </div>
-                <span class="text-2xl font-black tracking-widest glow-text">RUDRAX</span>
+                <i class="fas fa-atom text-3xl text-cyan-400 animate-spin-slow"></i>
+                <h1 class="text-2xl font-bold tracking-widest glow-text">RUDRAX</h1>
             </div>
-            <div class="hidden md:flex gap-8 text-sm tracking-widest font-bold">
+
+            <div class="search-container flex items-center gap-3 w-full md:w-auto">
+                <i class="fas fa-search text-gray-400"></i>
+                <input type="text" id="gameSearch" placeholder="Search universe games..." 
+                    class="bg-transparent border-none outline-none text-white placeholder-gray-500 text-sm w-full md:w-64 py-1">
+            </div>
+
+            <div class="hidden lg:flex gap-8 text-xs font-bold tracking-widest nav-font">
                 <a href="#puzzle" class="hover:text-cyan-400 transition">PUZZLE</a>
-                <a href="#racing" class="hover:text-cyan-400 transition">RACING</a>
-                <a href="#action" class="hover:text-cyan-400 transition">ACTION</a>
-                <a href="#adventure" class="hover:text-cyan-400 transition">ADVENTURE</a>
+                <a href="#racing" class="hover:text-orange-400 transition">RACING</a>
+                <a href="#action" class="hover:text-red-400 transition">ACTION</a>
             </div>
         </div>
     </nav>
 
-    <header class="relative pt-48 pb-24 px-6 text-center z-10">
-        <div class="inline-block px-4 py-1 border border-cyan-500/50 rounded-full text-xs tracking-[0.3em] text-cyan-400 mb-6 bg-cyan-900/20">
-            SYSTEM ONLINE: v2.0.4
-        </div>
-        <h1 class="text-5xl md:text-8xl font-black mb-6 glow-text tracking-tighter">
-            ULTRA ACTION <span class="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-cyan-400">HUB</span>
-        </h1>
-        <p class="max-w-2xl mx-auto text-gray-400 text-lg mb-12 tracking-wide">
-            Next-generation immersive gaming portal. Experience low-latency, high-performance web gaming on the Rudrax engine.
-        </p>
-        <button onclick="window.location.href='#puzzle'" class="pulse-btn px-10 py-4 bg-violet-600 hover:bg-violet-500 rounded-full font-bold text-lg tracking-widest transition-all">
-            LAUNCH ENGINE <i class="fas fa-chevron-right ml-2"></i>
-        </button>
+    <header class="pt-48 pb-20 text-center relative z-10 px-4">
+        <h2 class="text-5xl md:text-8xl font-black tracking-tighter mb-4 glow-text">
+            COSMIC ACTION<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-violet-500">PORTAL</span>
+        </h2>
+        <p class="text-lg text-gray-400 max-w-xl mx-auto mb-10">Explore the vastness of gaming in our high-performance universal engine.</p>
+        <button class="px-10 py-4 bg-violet-600 rounded-full font-bold shadow-[0_0_20px_rgba(139,92,246,0.5)] hover:scale-110 transition">ENTER VOID</button>
     </header>
 
-    <main class="max-w-7xl mx-auto px-6 space-y-32 pb-32 relative z-10">
+    <main class="max-w-7xl mx-auto px-6 pb-32 space-y-24 relative z-10">
         
         <section id="puzzle">
-            <div class="flex items-center gap-4 mb-12">
-                <div class="h-[2px] w-12 bg-cyan-500"></div>
-                <h3 class="text-3xl font-black">PUZZLE GAMES</h3>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="game-card p-1 rounded-3xl group cursor-pointer" onclick="window.location.href='2048.html'">
-                    <div class="p-8 text-center bg-[#0a0a0a] rounded-[calc(1.5rem-4px)]">
-                        <i class="fas fa-th-large text-5xl text-violet-400 mb-6 group-hover:scale-110 transition"></i>
-                        <h4 class="text-2xl font-bold mb-2">2048 MATRIX</h4>
-                        <p class="text-gray-500 text-sm">Strategic number merging in 3D space.</p>
-                    </div>
+            <h3 class="text-3xl font-bold mb-10 border-l-4 border-cyan-500 pl-4 tracking-widest">PUZZLE SECTOR</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="gameGrid">
+                
+                <div class="game-card p-8 rounded-3xl text-center group" data-name="2048 matrix">
+                    <i class="fas fa-th-large text-5xl text-cyan-400 mb-6 transition group-hover:scale-125"></i>
+                    <h4 class="text-2xl font-bold mb-2">2048 MATRIX</h4>
+                    <p class="text-gray-500">Level: Quantum</p>
                 </div>
-                <div class="game-card p-1 rounded-3xl group cursor-pointer" onclick="window.location.href='snake.html'">
-                    <div class="p-8 text-center bg-[#0a0a0a] rounded-[calc(1.5rem-4px)]">
-                        <i class="fas fa-wave-square text-5xl text-green-400 mb-6 group-hover:scale-110 transition"></i>
-                        <h4 class="text-2xl font-bold mb-2">SNAKE PROTOCOL</h4>
-                        <p class="text-gray-500 text-sm">Classic growth mechanics updated.</p>
-                    </div>
+
+                <div class="game-card p-8 rounded-3xl text-center group" data-name="snake protocol">
+                    <i class="fas fa-wave-square text-5xl text-green-400 mb-6 transition group-hover:scale-125"></i>
+                    <h4 class="text-2xl font-bold mb-2">SNAKE PROTOCOL</h4>
+                    <p class="text-gray-500">Level: Hyperdrive</p>
                 </div>
-                <div class="game-card p-1 rounded-3xl group cursor-pointer" onclick="window.location.href='tictactoe.html'">
-                    <div class="p-8 text-center bg-[#0a0a0a] rounded-[calc(1.5rem-4px)]">
-                        <i class="fas fa-times-circle text-5xl text-cyan-400 mb-6 group-hover:scale-110 transition"></i>
-                        <h4 class="text-2xl font-bold mb-2">NEON TIC-TAC-TOE</h4>
-                        <p class="text-gray-500 text-sm">Fast-paced tactical grid battle.</p>
-                    </div>
+
+                <div class="game-card p-8 rounded-3xl text-center group" data-name="neon tictactoe">
+                    <i class="fas fa-times-circle text-5xl text-violet-400 mb-6 transition group-hover:scale-125"></i>
+                    <h4 class="text-2xl font-bold mb-2">NEON TIC-TAC-TOE</h4>
+                    <p class="text-gray-500">Level: Tactical</p>
                 </div>
+
             </div>
         </section>
-
-        <section id="racing">
-            <div class="flex items-center gap-4 mb-12">
-                <div class="h-[2px] w-12 bg-orange-500"></div>
-                <h3 class="text-3xl font-black">RACING ARENA</h3>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="game-card rounded-3xl p-10 flex items-center gap-8 group">
-                    <i class="fas fa-car-side text-7xl text-orange-500"></i>
-                    <div>
-                        <h4 class="text-3xl font-bold">TURBO OVERDRIVE</h4>
-                        <p class="text-gray-400 mt-2">Coming Soon: Neon city high-speed chase.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <div class="grid md:grid-cols-2 gap-20">
-            <section id="action">
-                <h3 class="text-2xl font-black mb-8 border-l-4 border-red-600 pl-4">ACTION</h3>
-                <div class="game-card p-8 rounded-3xl opacity-50">
-                    <p class="text-center italic">Tactical Arena - Initializing...</p>
-                </div>
-            </section>
-            <section id="adventure">
-                <h3 class="text-2xl font-black mb-8 border-l-4 border-yellow-600 pl-4">ADVENTURE</h3>
-                <div class="game-card p-8 rounded-3xl opacity-50 text-center italic">
-                    Exploring new galaxies...
-                </div>
-            </section>
-        </div>
 
     </main>
 
-    <footer class="py-10 text-center border-t border-white/5 text-gray-600 text-sm">
-        &copy; 2026 RUDRAX ULTRA ACTION HUB • Powered by AI
-    </footer>
-
     <script>
-        // 3D Tilt Logic - Optimized
+        // Particles Generator
+        function initUniverse() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 150; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                const size = Math.random() * 2 + 1;
+                p.style.width = p.style.height = size + 'px';
+                p.style.left = Math.random() * 100 + 'vw';
+                p.style.top = Math.random() * 100 + 'vh';
+                p.style.animationDuration = (Math.random() * 20 + 10) + 's';
+                p.style.opacity = Math.random();
+                container.appendChild(p);
+            }
+        }
+
+        // Search Functionality
+        const searchInput = document.getElementById('gameSearch');
         const cards = document.querySelectorAll('.game-card');
-        cards.forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                
-                const rotateX = (y - centerY) / 10;
-                const rotateY = (centerX - x) / 10;
-                
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            cards.forEach(card => {
+                const name = card.getAttribute('data-name').toLowerCase();
+                if (name.includes(term)) {
+                    card.style.display = "block";
+                    card.style.opacity = "1";
+                } else {
+                    card.style.display = "none";
+                }
             });
         });
 
-        // Background Particles Generator
-        const particleContainer = document.getElementById('particles');
-        const colors = ['#a78bfa', '#22d3ee', '#ffffff'];
+        // 3D Tilt Effect
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = (e.clientX - rect.left - rect.width / 2) / 10;
+                const y = (e.clientY - rect.top - rect.height / 2) / 10;
+                card.style.transform = `perspective(1000px) rotateX(${-y}deg) rotateY(${x}deg) scale(1.05)`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)`;
+            });
+        });
 
-        for (let i = 0; i < 100; i++) {
-            const p = document.createElement('div');
-            p.className = 'particle';
-            const size = Math.random() * 3 + 1;
-            p.style.width = size + 'px';
-            p.style.height = size + 'px';
-            p.style.left = Math.random() * 100 + 'vw';
-            p.style.top = Math.random() * 100 + 'vh';
-            p.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-            p.style.animationDuration = (Math.random() * 10 + 10) + 's';
-            p.style.animationDelay = (Math.random() * 5) + 's';
-            particleContainer.appendChild(p);
-        }
+        initUniverse();
     </script>
 </body>
 </html>
