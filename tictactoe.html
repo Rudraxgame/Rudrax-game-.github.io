@@ -3,65 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tic-Tac-Toe - मस्ती गेम</title>
+    <title>Tic-Tac-Toe - Rudraksh Games</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
-        body { margin:0; padding:20px; background:linear-gradient(135deg,#ec4899,#a855f7); font-family:Arial,sans-serif; color:white; text-align:center; }
-        .container { max-width:500px; margin:0 auto; background:rgba(255,255,255,0.2); padding:20px; border-radius:20px; }
-        h1 { font-size:2.8rem; }
-        #board { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; width:300px; margin:20px auto; }
-        .cell { background:white; color:#000; height:90px; font-size:2.5rem; display:flex; align-items:center; justify-content:center; border-radius:10px; cursor:pointer; }
-        button { background:white; color:#a855f7; border:none; padding:12px 30px; font-size:1.2rem; border-radius:50px; cursor:pointer; margin:10px; }
-        .back { color:white; text-decoration:none; font-size:1.2rem; }
+        body {
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            font-family: 'Arial', sans-serif;
+            color: white;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            max-width: 400px;
+            width: 90%;
+            margin-top: 20px;
+        }
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .cell {
+            width: 100%;
+            aspect-ratio: 1/1;
+            background: white;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .cell:active { transform: scale(0.9); }
+        .cell.x { color: #ff4757; }
+        .cell.o { color: #2ed573; }
+        #status { font-size: 1.4rem; margin-bottom: 15px; font-weight: bold; min-height: 2rem; }
+        .btn {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);
+        }
+        .back-link { margin-top: 25px; display: block; color: #eee; text-decoration: none; font-size: 0.9rem; }
     </style>
 </head>
 <body>
+
     <div class="container">
         <h1>❌ Tic-Tac-Toe ⭕</h1>
-        <div id="board"></div>
-        <button onclick="newGame()">नया गेम</button><br><br>
-        <a href="puzzle.html" class="back">← Puzzle Games पर वापस</a>
+        <div id="status">Aapki Baari: X</div>
+        <div class="board" id="board"></div>
+        <button class="btn" onclick="resetGame()">Naya Game</button>
+        <a href="puzzle.html" class="back-link">← Puzzle Games par wapas</a>
     </div>
 
     <script>
-        let board = Array(9).fill(null);
-        let currentPlayer = 'X';
-        const boardEl = document.getElementById('board');
+        let board = ["", "", "", "", "", "", "", "", ""];
+        let currentPlayer = "X";
+        let gameActive = true;
+        const statusDisplay = document.getElementById('status');
+        const boardElement = document.getElementById('board');
 
         function createBoard() {
-            boardEl.innerHTML = '';
-            board.forEach((_, i) => {
-                const cell = document.createElement('div');
-                cell.className = 'cell';
-                cell.textContent = board[i];
-                cell.onclick = () => makeMove(i);
-                boardEl.appendChild(cell);
+            boardElement.innerHTML = "";
+            board.forEach((cell, index) => {
+                const cellElement = document.createElement('div');
+                cellElement.classList.add('cell');
+                if(cell) cellElement.classList.add(cell.toLowerCase());
+                cellElement.innerText = cell;
+                cellElement.addEventListener('click', () => handleCellClick(index));
+                boardElement.appendChild(cellElement);
             });
         }
 
-        function makeMove(i) {
-            if (board[i] || checkWinner()) return;
-            board[i] = currentPlayer;
-            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+        function handleCellClick(index) {
+            if (board[index] !== "" || !gameActive) return;
+            board[index] = currentPlayer;
+            checkWinner();
+            if (gameActive) {
+                currentPlayer = currentPlayer === "X" ? "O" : "X";
+                statusDisplay.innerText = `Aapki Baari: ${currentPlayer}`;
+            }
             createBoard();
-            if (checkWinner()) alert(currentPlayer === 'X' ? 'O jeet gaya!' : 'X jeet gaya!');
-            else if (!board.includes(null)) alert('Draw!');
         }
 
         function checkWinner() {
-            const wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
-            return wins.some(combo => {
-                const [a,b,c] = combo;
-                return board[a] && board[a] === board[b] && board[a] === board[c];
-            });
+            const winPatterns = [
+                [0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6]
+            ];
+            for (let pattern of winPatterns) {
+                const [a, b, c] = pattern;
+                if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+                    gameActive = false;
+                    statusDisplay.innerHTML = `<span style="color: #FFD700">🎉 ${currentPlayer} JEET GAYA! 🎉</span>`;
+                    celebrate();
+                    return;
+                }
+            }
+            if (!board.includes("")) {
+                gameActive = false;
+                statusDisplay.innerText = "Match Draw! 🤝";
+            }
         }
 
-        function newGame() {
-            board = Array(9).fill(null);
-            currentPlayer = 'X';
+        function celebrate() {
+            var duration = 3 * 1000;
+            var end = Date.now() + duration;
+
+            (function frame() {
+              confetti({ particleCount: 3, angle: 60, spread: 55, origin: { x: 0 } });
+              confetti({ particleCount: 3, angle: 120, spread: 55, origin: { x: 1 } });
+              if (Date.now() < end) { requestAnimationFrame(frame); }
+            }());
+        }
+
+        function resetGame() {
+            board = ["", "", "", "", "", "", "", "", ""];
+            currentPlayer = "X";
+            gameActive = true;
+            statusDisplay.innerText = `Aapki Baari: X`;
             createBoard();
         }
 
-        newGame();
+        createBoard();
     </script>
 </body>
 </html>
