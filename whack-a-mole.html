@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whack-A-Mole - Rudrax</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background: #0f172a; font-family: 'Arial', sans-serif; overflow: hidden; }
+        .hole { 
+            width: 100px; height: 100px; background: #334155; 
+            border-radius: 50%; position: relative; overflow: hidden; 
+            border: 4px solid #1e293b;
+        }
+        .mole { 
+            width: 80px; height: 80px; background: #fbbf24; 
+            border-radius: 50% 50% 0 0; position: absolute; 
+            bottom: -100%; left: 10px; transition: 0.2s;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            font-size: 40px;
+        }
+        .up { bottom: 0; }
+    </style>
+</head>
+<body class="text-white flex flex-col items-center p-5">
+
+    <h1 class="text-4xl font-bold text-yellow-400 mb-2">WHACK-A-MOLE!</h1>
+    <div class="text-2xl mb-4">Score: <span id="score">0</span> | Time: <span id="time">30</span>s</div>
+    
+    <div class="grid grid-cols-3 gap-8 p-5 bg-emerald-500/20 rounded-3xl">
+        <div class="hole"><div class="mole">🐹</div></div>
+        <div class="hole"><div class="mole">🐹</div></div>
+        <div class="hole"><div class="mole">🐹</div></div>
+        <div class="hole"><div class="mole">🐹</div></div>
+        <div class="hole"><div class="mole">🐹</div></div>
+        <div class="hole"><div class="mole">🐹</div></div>
+    </div>
+
+    <button id="start-btn" onclick="startGame()" class="mt-8 bg-yellow-500 hover:bg-yellow-400 text-black font-bold py-3 px-8 rounded-full text-xl transition-all">START GAME</button>
+
+    <script>
+        const holes = document.querySelectorAll('.hole');
+        const moles = document.querySelectorAll('.mole');
+        const scoreBoard = document.querySelector('#score');
+        const timeBoard = document.querySelector('#time');
+        let lastHole;
+        let timeUp = false;
+        let score = 0;
+        let timeLeft = 30;
+
+        function randomTime(min, max) {
+            return Math.round(Math.random() * (max - min) + min);
+        }
+
+        function randomHole(holes) {
+            const idx = Math.floor(Math.random() * holes.length);
+            const hole = holes[idx];
+            if (hole === lastHole) return randomHole(holes);
+            lastHole = hole;
+            return hole;
+        }
+
+        function peep() {
+            const time = randomTime(500, 1000);
+            const hole = randomHole(holes);
+            hole.querySelector('.mole').classList.add('up');
+            setTimeout(() => {
+                hole.querySelector('.mole').classList.remove('up');
+                if (!timeUp) peep();
+            }, time);
+        }
+
+        function startGame() {
+            scoreBoard.textContent = 0;
+            timeBoard.textContent = 30;
+            timeUp = false;
+            score = 0;
+            timeLeft = 30;
+            document.getElementById('start-btn').style.display = 'none';
+            peep();
+            
+            let timer = setInterval(() => {
+                timeLeft--;
+                timeBoard.textContent = timeLeft;
+                if(timeLeft <= 0) {
+                    clearInterval(timer);
+                    timeUp = true;
+                    alert('Game Over! Your Score: ' + score);
+                    document.getElementById('start-btn').style.display = 'block';
+                }
+            }, 1000);
+        }
+
+        moles.forEach(mole => mole.addEventListener('click', function() {
+            if(!this.classList.contains('up')) return;
+            score++;
+            this.classList.remove('up');
+            scoreBoard.textContent = score;
+        }));
+    </script>
+</body>
+</html>
