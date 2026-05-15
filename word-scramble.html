@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Scramble - Rudrax Puzzle</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background: #0f172a; color: white; font-family: 'Orbitron', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+        .scrambled { letter-spacing: 15px; font-size: 3rem; color: #fbbf24; text-shadow: 0 0 10px #fbbf24; }
+    </style>
+</head>
+<body class="p-5 text-center">
+
+    <h1 class="text-3xl font-bold text-cyan-400 mb-5">WORD SCRAMBLE</h1>
+    <p class="mb-8 text-gray-400">Put the letters in the right order!</p>
+
+    <div id="game-container">
+        <div class="scrambled font-black mb-10" id="scrambled-word">CODE</div>
+        <input type="text" id="user-input" class="bg-slate-800 border-2 border-cyan-500 p-3 rounded-xl text-2xl text-center outline-none w-64 mb-5" placeholder="Your Answer">
+        <div id="msg" class="text-xl font-bold h-8"></div>
+    </div>
+
+    <button onclick="checkWord()" class="mt-5 bg-cyan-500 hover:bg-cyan-400 text-black font-bold py-3 px-10 rounded-full transition-all">CHECK</button>
+    <button onclick="nextWord()" class="mt-5 ml-2 bg-gray-600 p-3 rounded-full text-sm">Skip</button>
+
+    <script>
+        const words = ["GALAXY", "PLANET", "PUZZLE", "ROBOT", "SPACE", "STARS", "COSMIC", "LOGIC"];
+        let currentWord = "";
+        let scrambled = "";
+
+        function scramble(word) {
+            let arr = word.split('');
+            for(let i = arr.length-1; i > 0; i--){
+                let j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr.join('');
+        }
+
+        function nextWord() {
+            currentWord = words[Math.floor(Math.random() * words.length)];
+            scrambled = scramble(currentWord);
+            document.getElementById('scrambled-word').innerText = scrambled;
+            document.getElementById('user-input').value = "";
+            document.getElementById('msg').innerText = "";
+        }
+
+        function checkWord() {
+            let input = document.getElementById('user-input').value.toUpperCase();
+            if(input === currentWord) {
+                document.getElementById('msg').innerText = "CORRECT! 🎉";
+                document.getElementById('msg').style.color = "#4ade80";
+                setTimeout(nextWord, 1500);
+            } else {
+                document.getElementById('msg').innerText = "TRY AGAIN! ❌";
+                document.getElementById('msg').style.color = "#f87171";
+            }
+        }
+
+        nextWord();
+    </script>
+</body>
+</html>
