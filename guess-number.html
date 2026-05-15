@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mystery Number - Rudrax Puzzle</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background: #0f172a; color: white; font-family: 'Orbitron', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+        .glow { text-shadow: 0 0 20px #22d3ee; }
+    </style>
+</head>
+<body class="p-5 text-center">
+
+    <h1 class="text-4xl font-bold text-cyan-400 mb-2 glow">MYSTERY NUMBER</h1>
+    <p class="mb-8 text-gray-400 text-lg">I'm thinking of a number between 1 and 100...</p>
+
+    <div class="bg-slate-800/50 p-8 rounded-[40px] border-2 border-cyan-500/30 shadow-2xl">
+        <input type="number" id="guess-input" class="bg-black border-2 border-yellow-500 p-4 rounded-xl text-3xl text-center outline-none w-32 mb-6 text-yellow-500" placeholder="?">
+        <div id="feedback" class="text-xl font-bold h-10 mb-4 text-white">Can you guess it?</div>
+        
+        <button onclick="checkGuess()" class="bg-yellow-500 hover:bg-yellow-400 text-black font-black py-3 px-12 rounded-full transition-all transform hover:scale-105">GUESS!</button>
+    </div>
+
+    <div class="mt-8 text-gray-500">Attempts: <span id="attempts" class="text-cyan-400">0</span></div>
+    <button onclick="resetGame()" class="mt-4 text-sm text-gray-400 underline hover:text-white">Restart Game</button>
+
+    <script>
+        let secretNumber;
+        let attempts = 0;
+
+        function resetGame() {
+            secretNumber = Math.floor(Math.random() * 100) + 1;
+            attempts = 0;
+            document.getElementById('attempts').innerText = attempts;
+            document.getElementById('feedback').innerText = "Can you guess it?";
+            document.getElementById('feedback').style.color = "white";
+            document.getElementById('guess-input').value = "";
+        }
+
+        function checkGuess() {
+            let guess = parseInt(document.getElementById('guess-input').value);
+            let feedback = document.getElementById('feedback');
+
+            if (isNaN(guess)) {
+                feedback.innerText = "Enter a number!";
+                return;
+            }
+
+            attempts++;
+            document.getElementById('attempts').innerText = attempts;
+
+            if (guess === secretNumber) {
+                feedback.innerText = "🏆 BOOM! YOU GOT IT!";
+                feedback.style.color = "#4ade80";
+            } else if (guess > secretNumber) {
+                feedback.innerText = "Too HIGH! ⬆️ Try Lower";
+                feedback.style.color = "#f87171";
+            } else {
+                feedback.innerText = "Too LOW! ⬇️ Try Higher";
+                feedback.style.color = "#fbbf24";
+            }
+        }
+
+        resetGame();
+    </script>
+</body>
+</html>
