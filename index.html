@@ -14,34 +14,48 @@
             background: radial-gradient(circle at center, #0a0a2e 0%, #050505 100%);
             color: #e0e0e0;
             overflow-x: hidden;
+            min-height: 100vh;
         }
 
         .universe { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
         
         .glass-card {
-            background: rgba(15, 23, 42, 0.7);
-            backdrop-filter: blur(18px);
-            border: 1px solid rgba(167, 139, 250, 0.3);
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(167, 139, 250, 0.2);
         }
 
         .game-card {
-            transition: transform 0.2s ease-out, box-shadow 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             transform-style: preserve-3d;
         }
 
         .game-card:hover {
-            box-shadow: 0 0 30px rgba(167, 139, 250, 0.5);
+            box-shadow: 0 0 40px rgba(167, 139, 250, 0.4);
             border-color: #a78bfa;
         }
         
-        /* Particle & Stars styling */
-        .star { position: absolute; background: white; border-radius: 50%; box-shadow: 0 0 10px #fff; animation: twinkle 4s infinite alternate; }
-        .particle { position: absolute; background: #c4b5fd; border-radius: 50%; box-shadow: 0 0 20px #a5b4fc, 0 0 40px #c026d3; animation: floatCosmic linear infinite; }
-        @keyframes twinkle { 0% { opacity: 0.3; } 100% { opacity: 1; } }
-        @keyframes floatCosmic { 0% { transform: translateY(110vh); } 100% { transform: translateY(-10vh); } }
+        /* Particles (Bubbles) - Bigger and Softer */
+        .particle { 
+            position: absolute; 
+            background: rgba(196, 181, 253, 0.15); 
+            border-radius: 50%; 
+            box-shadow: 0 0 20px rgba(165, 180, 252, 0.2);
+            backdrop-filter: blur(2px);
+            animation: floatCosmic linear infinite; 
+        }
+
+        @keyframes floatCosmic { 
+            0% { transform: translateY(110vh) scale(1); opacity: 0; } 
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-20vh) scale(1.2); opacity: 0; } 
+        }
+
+        .star { position: absolute; background: white; border-radius: 50%; opacity: 0.5; }
     </style>
 </head>
-<body class="min-h-screen relative">
+<body class="relative">
 
     <div class="universe" id="universe"></div>
 
@@ -58,113 +72,110 @@
         </div>
     </nav>
 
-    <div class="pt-44 pb-16 text-center relative z-10">
-        <h2 class="text-5xl md:text-7xl font-black tracking-tighter mb-4">
-            COSMIC ACTION<br><span class="text-violet-500">HUB</span>
+    <div class="pt-40 pb-10 text-center relative z-10">
+        <h2 class="text-5xl md:text-7xl font-black tracking-tighter">
+            COSMIC ACTION <span class="text-violet-500">HUB</span>
         </h2>
     </div>
 
-    <div class="max-w-7xl mx-auto px-6 pb-20 relative z-10 space-y-20">
+    <main class="max-w-7xl mx-auto px-6 pb-20 relative z-10">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+            
+            <div class="space-y-12">
+                <section class="category-section">
+                    <h3 class="text-3xl font-bold mb-6 flex items-center gap-4"><i class="fas fa-puzzle-piece text-cyan-400"></i> PUZZLE</h3>
+                    <a href="2048.html" class="game-card glass-card rounded-3xl overflow-hidden block">
+                        <div class="h-56 bg-gradient-to-br from-blue-600/40 to-cyan-500/40 flex items-center justify-center text-7xl">🟦</div>
+                        <div class="p-6 text-center"><h4 class="text-xl font-bold">2048 MATRIX</h4></div>
+                    </a>
+                </section>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <div class="category-section">
-                <h3 class="text-3xl font-bold mb-6 flex items-center gap-4">
-                    <i class="fas fa-puzzle-piece text-cyan-400"></i> PUZZLE CATEGORY
-                </h3>
-                <a href="2048.html" class="game-card glass-card rounded-3xl overflow-hidden block">
-                    <div class="h-64 bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center text-8xl">🟦</div>
-                    <div class="p-8 text-center"><h4 class="text-2xl font-bold">2048 MATRIX</h4></div>
-                </a>
+                <section class="category-section">
+                    <h3 class="text-3xl font-bold mb-6 flex items-center gap-4"><i class="fas fa-mountain text-emerald-400"></i> ADVENTURE</h3>
+                    <a href="tictactoe.html" class="game-card glass-card rounded-3xl overflow-hidden block">
+                        <div class="h-56 bg-gradient-to-br from-purple-600/40 to-pink-600/40 flex items-center justify-center text-7xl">❌⭕</div>
+                        <div class="p-6 text-center"><h4 class="text-xl font-bold">NEON TIC-TAC-TOE</h4></div>
+                    </a>
+                </section>
             </div>
 
-            <div class="category-section">
-                <h3 class="text-3xl font-bold mb-6 flex items-center gap-4">
-                    <i class="fas fa-bolt text-red-400"></i> ACTION CATEGORY
-                </h3>
-                <a href="snake.html" class="game-card glass-card rounded-3xl overflow-hidden block">
-                    <div class="h-64 bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center text-8xl">🐍</div>
-                    <div class="p-8 text-center"><h4 class="text-2xl font-bold">SNAKE PROTOCOL</h4></div>
-                </a>
+            <div class="space-y-12">
+                <section class="category-section">
+                    <h3 class="text-3xl font-bold mb-6 flex items-center gap-4"><i class="fas fa-bolt text-red-400"></i> ACTION</h3>
+                    <a href="snake.html" class="game-card glass-card rounded-3xl overflow-hidden block">
+                        <div class="h-56 bg-gradient-to-br from-green-500/40 to-emerald-600/40 flex items-center justify-center text-7xl">🐍</div>
+                        <div class="p-6 text-center"><h4 class="text-xl font-bold">SNAKE PROTOCOL</h4></div>
+                    </a>
+                </section>
+
+                <section class="category-section">
+                    <h3 class="text-3xl font-bold mb-6 flex items-center gap-4"><i class="fas fa-car-side text-orange-400"></i> RACING</h3>
+                    <a href="#" class="game-card glass-card rounded-3xl overflow-hidden block">
+                        <div class="h-56 bg-gradient-to-br from-orange-500/40 to-yellow-500/40 flex items-center justify-center text-7xl">🏎️</div>
+                        <div class="p-6 text-center"><h4 class="text-xl font-bold">TURBO OVERDRIVE</h4></div>
+                    </a>
+                </section>
             </div>
+
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <div class="category-section">
-                <h3 class="text-3xl font-bold mb-6 flex items-center gap-4">
-                    <i class="fas fa-mountain text-emerald-400"></i> ADVENTURE CATEGORY
-                </h3>
-                <a href="tictactoe.html" class="game-card glass-card rounded-3xl overflow-hidden block">
-                    <div class="h-64 bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center text-8xl">❌⭕</div>
-                    <div class="p-8 text-center"><h4 class="text-2xl font-bold">NEON TIC-TAC-TOE</h4></div>
-                </a>
-            </div>
-
-            <div class="category-section">
-                <h3 class="text-3xl font-bold mb-6 flex items-center gap-4">
-                    <i class="fas fa-car-side text-orange-400"></i> RACING CATEGORY
-                </h3>
-                <a href="#" class="game-card glass-card rounded-3xl overflow-hidden block">
-                    <div class="h-64 bg-gradient-to-br from-orange-500 to-yellow-500 flex items-center justify-center text-8xl">🏎️</div>
-                    <div class="p-8 text-center"><h4 class="text-2xl font-bold">TURBO OVERDRIVE</h4></div>
-                </a>
-            </div>
-        </div>
-
-        <div class="category-section">
+        <div class="mt-20">
             <h3 class="text-3xl font-bold mb-8 flex items-center gap-4">
-                <i class="fas fa-star text-yellow-400"></i> KIDS ENGAGEMENT ZONE
+                <i class="fas fa-star text-yellow-400"></i> NEW GAMES & ADS ZONE
             </h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="game-card glass-card rounded-3xl h-64 flex items-center justify-center text-center p-8 border border-dashed border-violet-400 opacity-60">
-                    <div><p class="text-4xl mb-2">🌟</p><p class="text-lg font-bold">Coming Soon</p></div>
-                </div>
+            <div class="w-full glass-card rounded-3xl p-12 border-dashed border-2 border-violet-500/40 text-center">
+                <p class="text-2xl font-bold text-violet-300 opacity-60">🚀 COMING SOON: NEW COSMIC ADVENTURES</p>
+                <p class="mt-2 text-zinc-500 italic">Advertisements & Sponsored Content Area</p>
             </div>
         </div>
 
-    </div>
+    </main>
 
     <script>
-        // Fix 3D Tilt Effect
-        const cards = document.querySelectorAll('.game-card');
-        cards.forEach(card => {
+        // Smooth 3D Tilt Effect
+        document.querySelectorAll('.game-card').forEach(card => {
             card.addEventListener('mousemove', (e) => {
                 const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left - rect.width / 2;
-                const y = e.clientY - rect.top - rect.height / 2;
-                card.style.transform = `perspective(1000px) rotateX(${-y / 15}deg) rotateY(${x / 15}deg) scale(1.05)`;
+                const x = (e.clientX - rect.left) / rect.width - 0.5;
+                const y = (e.clientY - rect.top) / rect.height - 0.5;
+                card.style.transform = `perspective(1000px) rotateX(${y * -10}deg) rotateY(${x * 10}deg) scale(1.02)`;
             });
             card.addEventListener('mouseleave', () => {
                 card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)';
             });
         });
 
-        // Search Logic
-        const searchInput = document.getElementById('searchInput');
-        searchInput.addEventListener('input', (e) => {
+        // Search Filter
+        document.getElementById('searchInput').addEventListener('input', (e) => {
             const term = e.target.value.toLowerCase();
             document.querySelectorAll('.category-section').forEach(sec => {
-                const text = sec.textContent.toLowerCase();
-                sec.style.display = text.includes(term) ? 'block' : 'none';
+                sec.style.display = sec.textContent.toLowerCase().includes(term) ? 'block' : 'none';
             });
         });
 
-        // Universe Background (Stars & Big Bubbles)
+        // Universe Background: 150 Particles, Big and Slow
         function initCosmos() {
             const container = document.getElementById('universe');
-            for (let i = 0; i < 50; i++) {
+            
+            // Generate 150 Particles
+            for (let i = 0; i < 150; i++) {
                 const p = document.createElement('div');
                 p.className = 'particle';
-                const size = Math.random() * 15 + 10;
+                const size = Math.random() * 30 + 20; // 20px to 50px
                 p.style.width = p.style.height = `${size}px`;
                 p.style.left = `${Math.random() * 100}vw`;
-                p.style.animationDuration = `${Math.random() * 30 + 20}s`;
-                p.style.opacity = Math.random() * 0.4;
+                // Slow floating duration (40s to 70s)
+                p.style.animationDuration = `${Math.random() * 30 + 40}s`;
+                p.style.animationDelay = `${Math.random() * -60}s`; 
                 container.appendChild(p);
             }
-            for (let i = 0; i < 100; i++) {
+
+            // Simple Stars
+            for (let i = 0; i < 120; i++) {
                 const s = document.createElement('div');
                 s.className = 'star';
-                const size = Math.random() * 3 + 1;
+                const size = Math.random() * 2 + 1;
                 s.style.width = s.style.height = `${size}px`;
                 s.style.left = `${Math.random() * 100}vw`;
                 s.style.top = `${Math.random() * 100}vh`;
