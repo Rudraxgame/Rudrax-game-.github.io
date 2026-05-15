@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RUDRAX - LOGIN</title>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap');
+        
+        body {
+            background: radial-gradient(circle, #0f172a, #000);
+            height: 100vh; overflow: hidden; font-family: 'Orbitron';
+        }
+
+        /* Spinning Google Logo Animation */
+        .google-logo-spin {
+            animation: rotateLogo 5s linear infinite;
+        }
+        @keyframes rotateLogo {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
+        }
+
+        /* 3D Glass Card Pop-Out */
+        .login-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(167, 139, 250, 0.4);
+            transform-style: preserve-3d;
+            transition: transform 0.2s;
+        }
+        .login-card:hover {
+            transform: perspective(1000px) rotateX(5deg) scale(1.05);
+            box-shadow: 0 0 50px rgba(167, 139, 250, 0.5);
+        }
+
+        /* Bubbles */
+        .bubble {
+            position: absolute; background: rgba(167, 139, 250, 0.2);
+            border-radius: 50%; animation: float 10s infinite linear;
+        }
+        @keyframes float {
+            0% { transform: translateY(110vh); }
+            100% { transform: translateY(-10vh); }
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center">
+
+    <div id="bubbles-container"></div>
+
+    <div class="login-card p-12 rounded-[40px] text-center z-10 w-96">
+        <h1 class="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-cyan-400">RUDRAX</h1>
+        <p class="text-cyan-400 tracking-[10px] mb-10 text-sm">GAMES</p>
+
+        <div class="mb-10 flex justify-center">
+            <div class="w-24 h-24 bg-white/10 rounded-full flex items-center justify-center border-2 border-cyan-400 google-logo-spin shadow-[0_0_20px_#22d3ee]">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_\"G\"_Logo.svg" class="w-12 h-12">
+            </div>
+        </div>
+
+        <div id="g_id_onload"
+             data-client_id="YOUR_GOOGLE_CLIENT_ID_HERE"
+             data-callback="handleCredentialResponse">
+        </div>
+        <div class="g_id_signin" data-type="standard"></div>
+    </div>
+
+    <script>
+        // Bubble generator
+        const container = document.getElementById('bubbles-container');
+        for(let i=0; i<30; i++) {
+            let b = document.createElement('div');
+            b.className = 'bubble';
+            let size = Math.random() * 40 + 10;
+            b.style.width = b.style.height = size + 'px';
+            b.style.left = Math.random() * 100 + 'vw';
+            b.style.animationDuration = (Math.random() * 10 + 5) + 's';
+            container.appendChild(b);
+        }
+
+        // Handle Google Response
+        function handleCredentialResponse(response) {
+            console.log("Login Successful! Token: " + response.credential);
+            // Login ke baad bache ko seedha index page par bhej do
+            window.location.href = "index.html"; 
+        }
+    </script>
+</body>
+</html>
