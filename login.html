@@ -3,122 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RUDRAX - START PLAYING</title>
+    <title>RUDRAX - COSMIC PLAY</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap');
         
         body {
-            background: radial-gradient(circle, #0f172a, #000);
+            background: radial-gradient(circle at center, #1e1b4b, #000);
             height: 100vh; overflow: hidden; font-family: 'Orbitron';
-            cursor: crosshair;
+            cursor: crosshair; margin: 0;
         }
 
-        /* Pulsing Play Button Animation */
-        @keyframes pulseBtn {
-            0% { transform: scale(1); box-shadow: 0 0 20px rgba(234, 179, 8, 0.4); }
-            50% { transform: scale(1.1); box-shadow: 0 0 40px rgba(234, 179, 8, 0.8); }
-            100% { transform: scale(1); box-shadow: 0 0 20px rgba(234, 179, 8, 0.4); }
-        }
-        .pulse-animation {
-            animation: pulseBtn 2s infinite ease-in-out;
-        }
+        /* Hardware Acceleration for Smoothness */
+        .smooth-anim { will-change: transform, opacity; }
 
-        /* 3D Pop-Out on Hover */
-        .play-card {
-            background: rgba(255, 255, 255, 0.07);
+        /* Floating Card Animation */
+        @keyframes floatCard {
+            0%, 100% { transform: translateY(0px) perspective(1000px); }
+            50% { transform: translateY(-15px) perspective(1000px); }
+        }
+        .main-card {
+            animation: floatCard 4s infinite ease-in-out;
+            background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(15px);
-            border: 2px solid rgba(34, 211, 238, 0.3);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(34, 211, 238, 0.2);
             transform-style: preserve-3d;
         }
-        .play-card:hover {
-            transform: perspective(1000px) translateZ(50px) rotateX(10deg);
-            border-color: #fbbf24;
+
+        /* 3D Spinning R Logo */
+        @keyframes spinR {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
+        }
+        .r-logo {
+            font-size: 80px; font-weight: 900;
+            background: linear-gradient(to bottom, #22d3ee, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: spinR 3s infinite linear;
+            display: inline-block;
+            filter: drop-shadow(0 0 15px rgba(34, 211, 238, 0.8));
         }
 
-        /* Floating Game Icons */
-        .game-icon {
-            position: absolute; pointer-events: none;
-            opacity: 0.3; animation: floatIcon 15s infinite linear;
+        /* Pulsing Golden Play Button with Aura */
+        @keyframes auraPulse {
+            0% { box-shadow: 0 0 10px #fbbf24, 0 0 20px #fbbf24; }
+            50% { box-shadow: 0 0 30px #fbbf24, 0 0 60px #f59e0b; }
+            100% { box-shadow: 0 0 10px #fbbf24, 0 0 20px #fbbf24; }
         }
-        @keyframes floatIcon {
-            0% { transform: translateY(110vh) rotate(0deg); }
-            100% { transform: translateY(-10vh) rotate(360deg); }
+        .play-btn {
+            background: linear-gradient(45deg, #fbbf24, #f59e0b);
+            animation: auraPulse 2s infinite ease-in-out;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
+        .play-btn:hover { transform: scale(1.15) translateZ(30px); }
 
-        /* Floating Bubbles (Matching your previous theme) */
-        .bubble {
-            position: absolute; background: rgba(34, 211, 238, 0.15);
-            border-radius: 50%; animation: float 10s infinite linear;
-            pointer-events: none;
+        /* Bubbles & Icons */
+        .element {
+            position: absolute; pointer-events: none; opacity: 0.4;
+            animation: moveUp linear infinite;
         }
-        @keyframes float {
-            0% { transform: translateY(110vh) translateX(0); }
-            100% { transform: translateY(-10vh) translateX(50px); }
+        @keyframes moveUp {
+            from { transform: translateY(110vh) rotate(0deg); }
+            to { transform: translateY(-20vh) rotate(360deg); }
         }
     </style>
 </head>
 <body class="flex items-center justify-center">
 
-    <div id="bg-elements"></div>
+    <div id="bg-layer" class="absolute inset-0 overflow-hidden"></div>
 
-    <div class="play-card p-16 rounded-[50px] text-center z-10 w-[450px]">
-        <h1 class="text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-cyan-400 mb-2">RUDRAX</h1>
-        <p class="text-cyan-400 tracking-[12px] mb-12 text-sm">COSMIC GALAXY</p>
+    <div class="main-card p-10 rounded-[50px] text-center z-10 w-[420px]">
+        
+        <div class="mb-2">
+            <span class="r-logo smooth-anim">R</span>
+        </div>
 
-        <div class="flex justify-center mb-6">
+        <h1 class="text-5xl font-black text-white mb-1 tracking-tighter">RUDRAX</h1>
+        <p class="text-cyan-400 tracking-[10px] mb-10 text-[10px] font-bold">COSMIC GALAXY</p>
+
+        <div class="flex justify-center mb-8">
             <button onclick="window.location.href='index.html'" 
-                class="pulse-animation group relative flex items-center justify-center w-32 h-32 bg-yellow-500 rounded-full border-4 border-white shadow-[0_0_30px_rgba(251,191,36,0.6)] hover:bg-yellow-400 transition-colors">
-                <div class="w-0 h-0 border-t-[20px] border-t-transparent border-l-[35px] border-l-white border-b-[20px] border-b-transparent ml-2"></div>
-                
-                <span class="absolute -bottom-12 scale-0 group-hover:scale-100 transition-transform bg-white text-black px-4 py-1 rounded-full text-xs font-bold">START!</span>
+                class="play-btn w-28 h-28 rounded-full flex items-center justify-center border-4 border-white shadow-2xl">
+                <div class="w-0 h-0 border-t-[15px] border-t-transparent border-l-[25px] border-l-white border-b-[15px] border-b-transparent ml-2"></div>
             </button>
         </div>
 
-        <h2 class="text-white text-2xl font-bold mt-8 mb-2">READY TO PLAY?</h2>
-        <p class="text-gray-400 text-xs tracking-wider uppercase">No Login Required • Fun Guaranteed</p>
+        <h2 class="text-white text-xl font-bold tracking-widest">TAP TO ENTER</h2>
+        <div class="mt-4 flex justify-center gap-2">
+            <span class="w-2 h-2 bg-cyan-400 rounded-full animate-bounce"></span>
+            <span class="w-2 h-2 bg-violet-400 rounded-full animate-bounce [animation-delay:0.2s]"></span>
+            <span class="w-2 h-2 bg-yellow-400 rounded-full animate-bounce [animation-delay:0.4s]"></span>
+        </div>
     </div>
 
     <script>
-        const container = document.getElementById('bg-elements');
-        const icons = ['🎮', '🕹️', '🚀', '🎲', '⭐', '👾', '🧩'];
+        const bg = document.getElementById('bg-layer');
+        const icons = ['🎮', '🚀', '👾', '🕹️', '🎲', '⭐', '🧩', '💎'];
+        
+        // Massive Density: 100 Elements (Bubbles + Icons)
+        function createElements() {
+            for(let i=0; i<100; i++) {
+                const el = document.createElement('div');
+                const isIcon = Math.random() > 0.6; // 40% are Game Icons
+                
+                if(isIcon) {
+                    el.innerText = icons[Math.floor(Math.random() * icons.length)];
+                    el.style.fontSize = Math.random() * 20 + 15 + 'px';
+                    el.className = 'element smooth-anim';
+                } else {
+                    el.className = 'element smooth-anim bg-cyan-400/20 rounded-full';
+                    const size = Math.random() * 40 + 5;
+                    el.style.width = el.style.height = size + 'px';
+                }
 
-        // Generate Bubbles
-        for(let i=0; i<25; i++) {
-            let b = document.createElement('div');
-            b.className = 'bubble';
-            let size = Math.random() * 60 + 20;
-            b.style.width = b.style.height = size + 'px';
-            b.style.left = Math.random() * 100 + 'vw';
-            b.style.animationDuration = (Math.random() * 8 + 5) + 's';
-            b.style.animationDelay = (Math.random() * 5) + 's';
-            container.appendChild(b);
+                el.style.left = Math.random() * 100 + 'vw';
+                el.style.animationDuration = Math.random() * 10 + 5 + 's';
+                el.style.animationDelay = Math.random() * 10 + 's';
+                bg.appendChild(el);
+            }
         }
 
-        // Generate Floating Game Icons
-        for(let i=0; i<15; i++) {
-            let icon = document.createElement('div');
-            icon.className = 'game-icon text-3xl';
-            icon.innerText = icons[Math.floor(Math.random() * icons.length)];
-            icon.style.left = Math.random() * 100 + 'vw';
-            icon.style.animationDuration = (Math.random() * 12 + 8) + 's';
-            icon.style.animationDelay = (Math.random() * 10) + 's';
-            container.appendChild(icon);
-        }
+        createElements();
 
-        // Simple Mouse Trail Effect
+        // Magic Mouse Dust
         document.addEventListener('mousemove', (e) => {
-            let spark = document.createElement('div');
-            spark.className = 'absolute w-1 h-1 bg-cyan-400 rounded-full pointer-events-none z-50';
-            spark.style.left = e.pageX + 'px';
-            spark.style.top = e.pageY + 'px';
-            document.body.appendChild(spark);
-            
+            const dot = document.createElement('div');
+            dot.className = 'absolute w-1 h-1 bg-yellow-400 rounded-full pointer-events-none z-50';
+            dot.style.left = e.pageX + 'px';
+            dot.style.top = e.pageY + 'px';
+            document.body.appendChild(dot);
             setTimeout(() => {
-                spark.style.transform = 'scale(4)';
-                spark.style.opacity = '0';
-                setTimeout(() => spark.remove(), 300);
+                dot.style.transform = 'scale(5)';
+                dot.style.opacity = '0';
+                dot.style.transition = 'all 0.5s ease-out';
+                setTimeout(() => dot.remove(), 500);
             }, 10);
         });
     </script>
