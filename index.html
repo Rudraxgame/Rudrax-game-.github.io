@@ -3,208 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RUDRAX COSMIC HUB</title>
+    <title>Rudrax Puzzle Zone</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&display=swap');
-
-        body {
-            font-family: 'Orbitron', sans-serif;
-            background: radial-gradient(circle at center, #0a0a2e 0%, #050505 100%);
-            color: #e0e0e0;
-            overflow-x: hidden;
-            margin: 0;
-        }
-
-        .universe { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
-        
-        /* Glass Effect */
-        .glass-card {
-            background: rgba(15, 23, 42, 0.75);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(167, 139, 250, 0.3);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
-        }
-
-        /* Drawing Style Layout Columns */
-        .main-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        /* Massive Pop-Out Effect */
-        .category-card {
-            position: relative;
-            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            transform-style: preserve-3d;
-            cursor: pointer;
-            border-radius: 30px;
-            overflow: hidden;
-        }
-
-        .category-card:hover {
-            transform: scale(1.1) translateY(-10px) rotateX(5deg);
-            z-index: 50;
-            box-shadow: 0 30px 70px rgba(167, 139, 250, 0.5);
-            border-color: #a78bfa;
-        }
-
-        /* Play Text Overlay (Only shows on hover) */
-        .play-overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(124, 58, 237, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s;
-            font-size: 2rem;
-            font-weight: 900;
-            text-shadow: 0 0 20px #fff;
-        }
-
-        .category-card:hover .play-overlay {
-            opacity: 1;
-        }
-
-        /* Natural Bubble Animation */
-        .particle { 
-            position: absolute; 
-            background: rgba(196, 181, 253, 0.15); 
-            border-radius: 50%; 
-            pointer-events: none;
-            will-change: transform;
-            animation: floatCosmic linear infinite; 
-        }
-
-        @keyframes floatCosmic { 
-            0% { transform: translateY(110vh) scale(0.8); opacity: 0; } 
-            20% { opacity: 0.4; }
-            80% { opacity: 0.4; }
-            100% { transform: translateY(-20vh) scale(1.2); opacity: 0; } 
-        }
-
-        @media (max-width: 768px) {
-            .main-container { grid-template-columns: 1fr; }
-        }
+        body { font-family: 'Orbitron', sans-serif; background: radial-gradient(circle at center, #1e1b4b 0%, #0f172a 100%); }
     </style>
 </head>
-<body>
+<body class="text-white min-h-screen p-6 md:p-12 flex flex-col items-center">
 
-    <div class="universe" id="universe"></div>
-
-    <nav class="fixed top-0 w-full z-[100] glass-card px-8 py-5 flex justify-between items-center">
-        <div class="flex items-center gap-4">
-            <i class="fas fa-gamepad text-4xl text-violet-400"></i>
-            <h1 class="text-3xl font-bold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-cyan-400">RUDRAX</h1>
-        </div>
-        <div class="relative w-80">
-            <input id="searchInput" type="text" placeholder="Search categories..." class="w-full bg-zinc-900/80 border border-violet-500/50 rounded-full py-2 px-10 text-white outline-none focus:border-violet-400">
-            <i class="fas fa-search absolute left-4 top-3 text-violet-400"></i>
-        </div>
-    </nav>
-
-    <div class="pt-48 pb-16 text-center relative z-10">
-        <h2 class="text-6xl md:text-8xl font-black tracking-tighter">
-            COSMIC <span class="text-violet-500">ACTION</span>
-        </h2>
+    <div class="text-center mb-12">
+        <h1 class="text-4xl md:text-5xl font-black tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500 mb-3">
+            🎯 RUDRAX PUZZLE ZONE 🎯
+        </h1>
+        <p class="text-gray-400">Baccho ke liye sabse mazedaar aur dimaag chalane wale games!</p>
     </div>
 
-    <main class="relative z-10 px-6 pb-20">
-        <div class="main-container">
-            
-            <div class="space-y-12">
-                <div class="category-group">
-                    <h3 class="text-3xl font-bold mb-6 flex items-center gap-4 text-cyan-400"><i class="fas fa-puzzle-piece"></i> PUZZLE</h3>
-                    <a href="2048.html" class="category-card glass-card block">
-                        <div class="h-64 bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center text-8xl">🟦</div>
-                        <div class="p-8 text-center"><h4 class="text-2xl font-bold">2048 MATRIX</h4></div>
-                        <div class="play-overlay">PLAY NOW</div>
-                    </a>
-                </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl w-full">
+        
+        <a href="2048.html" class="group p-6 bg-slate-900/60 rounded-3xl border border-cyan-500/20 hover:border-cyan-400 hover:scale-105 transition-all backdrop-blur-sm">
+            <div class="text-4xl mb-3">🔢</div>
+            <h3 class="text-xl font-bold text-cyan-400 group-hover:text-cyan-300">2048 Matrix</h3>
+            <p class="text-sm text-gray-400 mt-1">Numbers jodo aur 2048 banao!</p>
+        </a>
 
-                <div class="category-group">
-                    <h3 class="text-3xl font-bold mb-6 flex items-center gap-4 text-emerald-400"><i class="fas fa-mountain"></i> ADVENTURE</h3>
-                    <a href="tictactoe.html" class="category-card glass-card block">
-                        <div class="h-64 bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center text-8xl">❌⭕</div>
-                        <div class="p-8 text-center"><h4 class="text-2xl font-bold">NEON TIC-TAC-TOE</h4></div>
-                        <div class="play-overlay">PLAY NOW</div>
-                    </a>
-                </div>
-            </div>
+        <a href="snake.html" class="group p-6 bg-slate-900/60 rounded-3xl border border-cyan-500/20 hover:border-cyan-400 hover:scale-105 transition-all backdrop-blur-sm">
+            <div class="text-4xl mb-3">🐍</div>
+            <h3 class="text-xl font-bold text-green-400 group-hover:text-green-300">Cosmic Snake</h3>
+            <p class="text-sm text-gray-400 mt-1">Classic logic game naye avatar mein.</p>
+        </a>
 
-            <div class="space-y-12">
-                <div class="category-group">
-                    <h3 class="text-3xl font-bold mb-6 flex items-center gap-4 text-red-400"><i class="fas fa-bolt"></i> ACTION</h3>
-                    <a href="snake.html" class="category-card glass-card block">
-                        <div class="h-64 bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center text-8xl">🐍</div>
-                        <div class="p-8 text-center"><h4 class="text-2xl font-bold">SNAKE PROTOCOL</h4></div>
-                        <div class="play-overlay">PLAY NOW</div>
-                    </a>
-                </div>
+        <a href="tictactoe.html" class="group p-6 bg-slate-900/60 rounded-3xl border border-cyan-500/20 hover:border-cyan-400 hover:scale-105 transition-all backdrop-blur-sm">
+            <div class="text-4xl mb-3">❌</div>
+            <h3 class="text-xl font-bold text-purple-400 group-hover:text-purple-300">Neon Tic-Tac-Toe</h3>
+            <p class="text-sm text-gray-400 mt-1">Dost ya computer ke saath dimaag ladao.</p>
+        </a>
 
-                <div class="category-group">
-                    <h3 class="text-3xl font-bold mb-6 flex items-center gap-4 text-orange-400"><i class="fas fa-car-side"></i> RACING</h3>
-                    <a href="#" class="category-card glass-card block">
-                        <div class="h-64 bg-gradient-to-br from-orange-500 to-yellow-500 flex items-center justify-center text-8xl">🏎️</div>
-                        <div class="p-8 text-center"><h4 class="text-2xl font-bold">TURBO OVERDRIVE</h4></div>
-                        <div class="play-overlay">PLAY NOW</div>
-                    </a>
-                </div>
-            </div>
-        </div>
+        <a href="memory.html" class="group p-6 bg-slate-900/60 rounded-3xl border border-cyan-500/20 hover:border-cyan-400 hover:scale-105 transition-all backdrop-blur-sm">
+            <div class="text-4xl mb-3">🧠</div>
+            <h3 class="text-xl font-bold text-yellow-400 group-hover:text-yellow-300">Memory Match</h3>
+            <p class="text-sm text-gray-400 mt-1">Same cards dhoodho aur dimaag tez karo.</p>
+        </a>
 
-        <div class="max-w-[1200px] mx-auto mt-20">
-            <div class="glass-card rounded-3xl p-16 text-center border-dashed border-2 border-violet-500/40">
-                <h3 class="text-4xl font-bold text-violet-400 mb-2">NEW GAMES & ADS</h3>
-                <p class="text-zinc-500 tracking-widest">LOADING NEW COSMIC CONTENT...</p>
-            </div>
-        </div>
-    </main>
+        <a href="sudoku.html" class="group p-6 bg-slate-900/60 rounded-3xl border border-cyan-500/20 hover:border-cyan-400 hover:scale-105 transition-all backdrop-blur-sm">
+            <div class="text-4xl mb-3">🧩</div>
+            <h3 class="text-xl font-bold text-pink-400 group-hover:text-pink-300">Emoji Sudoku</h3>
+            <p class="text-sm text-gray-400 mt-1">Grid ko sahi patterns se bharo.</p>
+        </a>
 
-    <script>
-        // Intense 3D Pop-Out Effect
-        document.querySelectorAll('.category-card').forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = (e.clientX - rect.left) / rect.width - 0.5;
-                const y = (e.clientY - rect.top) / rect.height - 0.5;
-                // Stronger tilt for "bahar aane wala" look
-                card.style.transform = `perspective(1000px) rotateX(${y * -15}deg) rotateY(${x * 15}deg) scale3d(1.1, 1.1, 1.1)`;
-            });
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
-            });
-        });
+        <a href="bubble-pop.html" class="group p-6 bg-slate-900/60 rounded-3xl border border-cyan-500/20 hover:border-cyan-400 hover:scale-105 transition-all backdrop-blur-sm">
+            <div class="text-4xl mb-3">🫧</div>
+            <h3 class="text-xl font-bold text-blue-400 group-hover:text-blue-300">Bubble Pop</h3>
+            <p class="text-sm text-gray-400 mt-1">Color matching bubble pop puzzle.</p>
+        </a>
 
-        // Search Filter
-        document.getElementById('searchInput').addEventListener('input', (e) => {
-            const term = e.target.value.toLowerCase();
-            document.querySelectorAll('.category-group').forEach(group => {
-                group.style.display = group.textContent.toLowerCase().includes(term) ? 'block' : 'none';
-            });
-        });
+        <a href="color-memory.html" class="group p-6 bg-slate-900/60 rounded-3xl border border-cyan-500/20 hover:border-cyan-400 hover:scale-105 transition-all backdrop-blur-sm">
+            <div class="text-4xl mb-3">🎨</div>
+            <h3 class="text-xl font-bold text-orange-400 group-hover:text-orange-300">Color Pattern</h3>
+            <p class="text-sm text-gray-400 mt-1">Blinking colors ka pattern yaad rakho.</p>
+        </a>
 
-        // 150 Natural Smooth Bubbles
-        function initCosmos() {
-            const container = document.getElementById('universe');
-            for (let i = 0; i < 150; i++) {
-                const p = document.createElement('div');
-                p.className = 'particle';
-                const size = Math.random() * 30 + 20; 
-                p.style.width = p.style.height = `${size}px`;
-                p.style.left = `${Math.random() * 100}vw`;
-                p.style.animationDuration = `${Math.random() * 20 + 25}s`;
-                p.style.animationDelay = `-${Math.random() * 50}s`;
-                container.appendChild(p);
-            }
-        }
-        initCosmos();
-    </script>
+        <a href="guess-number.html" class="group p-6 bg-slate-900/60 rounded-3xl border border-cyan-500/20 hover:border-cyan-400 hover:scale-105 transition-all backdrop-blur-sm">
+            <div class="text-4xl mb-3">🔢</div>
+            <h3 class="text-xl font-bold text-amber-500 group-hover:text-amber-400">Mystery Number</h3>
+            <p class="text-sm text-gray-400 mt-1">Logic se computer ka secret number guess karo.</p>
+        </a>
+
+        <a href="word-scramble.html" class="group p-6 bg-slate-900/60 rounded-3xl border border-cyan-500/20 hover:border-cyan-400 hover:scale-105 transition-all backdrop-blur-sm">
+            <div class="text-4xl mb-3">🔠</div>
+            <h3 class="text-xl font-bold text-teal-400 group-hover:text-teal-300">Word Scramble</h3>
+            <p class="text-sm text-gray-400 mt-1">Ulte-pulte aksharon ko jodkar word banao.</p>
+        </a>
+
+    </div>
+
+    <a href="index.html" class="mt-12 bg-slate-800 hover:bg-slate-700 border border-slate-700 px-6 py-3 rounded-full text-sm font-semibold transition-all">
+        ← Main Menu Par Wapas Jao
+    </a>
+
 </body>
 </html>
